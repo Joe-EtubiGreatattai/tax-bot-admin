@@ -66,6 +66,17 @@ export const requestUserDeletion = async (userId: string, reason: string) => {
     return response.data;
 };
 
+// Profile
+export const updateProfile = async (data: { name?: string; password?: string }) => {
+    const response = await api.put('/profile', data);
+    return response.data;
+};
+
+export const createAdmin = async (data: { name: string; email: string; password: string }) => {
+    const response = await api.post('/create-admin', data);
+    return response.data;
+};
+
 export const deleteUserNow = async (userId: string, reason: string) => {
     const response = await api.delete(`/users/${userId}`, { data: { reason } });
     return response.data;

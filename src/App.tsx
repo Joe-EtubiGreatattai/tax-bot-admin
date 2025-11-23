@@ -4,6 +4,7 @@ import Dashboard from './pages/Dashboard';
 import UsersPage from './pages/UsersPage';
 import ReceiptsPage from './pages/ReceiptsPage';
 import PaymentsPage from './pages/PaymentsPage';
+import SettingsPage from './pages/SettingsPage';
 import LoginPage from './pages/LoginPage';
 import { AuthProvider, useAuth } from './context/AuthContext';
 import { Loader2 } from 'lucide-react';
@@ -35,7 +36,7 @@ function App() {
               <Route path="users" element={<UsersPage />} />
               <Route path="receipts" element={<ReceiptsPage />} />
               <Route path="payments" element={<PaymentsPage />} />
-              <Route path="settings" element={<div className="p-4">Settings Page (Coming Soon)</div>} />
+              <Route path="settings" element={<SettingsPage />} />
             </Route>
           </Route>
         </Routes>

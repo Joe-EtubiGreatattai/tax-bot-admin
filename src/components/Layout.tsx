@@ -11,6 +11,7 @@ import {
     CreditCard
 } from 'lucide-react';
 import { cn } from '../lib/utils';
+import MercyAdminChat from './MercyAdminChat';
 
 const Sidebar = ({ isOpen, setIsOpen }: { isOpen: boolean; setIsOpen: (v: boolean) => void }) => {
     const location = useLocation();
@@ -97,10 +98,18 @@ const Layout = () => {
                     </div>
                 </header>
 
-                {/* Main Content */}
-                <main className="page-content">
-                    <Outlet />
-                </main>
+                {/* Content Wrapper */}
+                <div className="content-wrapper">
+                    {/* Main Content */}
+                    <main className="page-content">
+                        <Outlet />
+                    </main>
+
+                    {/* Right Sidebar (Chat) */}
+                    <aside className="right-sidebar">
+                        <MercyAdminChat />
+                    </aside>
+                </div>
             </div>
         </div>
     );

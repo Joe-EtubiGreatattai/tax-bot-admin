@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { getUsers, suspendUser, unsuspendUser, requestUserDeletion, deleteUserNow } from '../services/api';
-import { Loader2, Search } from 'lucide-react';
+import { Loader2, Search, Ban, Trash2 } from 'lucide-react';
 
 const formatCurrency = (amount: number | undefined) => {
     if (!amount) return '₦0';
@@ -138,68 +138,71 @@ const UsersPage = () => {
                                             ? 'Active'
                                             : 'Inactive';
                                 return (
-                                <tr key={user._id}>
-                                    <td>
-                                        <div className="user-cell">
-                                            <div className="user-avatar-placeholder">
-                                                {user.name?.charAt(0)?.toUpperCase()}
+                                    <tr key={user._id}>
+                                        <td>
+                                            <div className="user-cell">
+                                                <div className="user-avatar-placeholder">
+                                                    {user.name?.charAt(0)?.toUpperCase()}
+                                                </div>
+                                                <div>
+                                                    <div className="user-name">{user.name}</div>
+                                                </div>
                                             </div>
-                                            <div>
-                                                <div className="user-name">{user.name}</div>
+                                        </td>
+                                        <td>
+                                            <div className="flex flex-col">
+                                                <span className="text-sm font-medium">{user.email}</span>
+                                                <span className="text-xs text-muted-foreground">{user.phone || 'No phone'}</span>
                                             </div>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div className="flex flex-col">
-                                            <span className="text-sm font-medium">{user.email}</span>
-                                            <span className="text-xs text-muted-foreground">{user.phone || 'No phone'}</span>
-                                        </div>
-                                    </td>
-                                    <td className="font-mono text-sm">{user.tin || '-'}</td>
-                                    <td className="text-sm font-medium">{user.totalReceipts ?? 0}</td>
-                                    <td className="text-sm">{formatCurrency(user.totalSpent)}</td>
-                                    <td className="text-sm font-semibold text-primary">{formatCurrency(user.totalTaxAllTime)}</td>
-                                    <td className="text-sm">
-                                        {user.unpaidMonthsCount > 0 ? (
-                                            <span className="text-red-600 font-bold">{user.unpaidMonthsCount}</span>
-                                        ) : (
-                                            <span className="text-green-600">0</span>
-                                        )}
-                                    </td>
-                                    <td className="text-sm text-muted-foreground">
-                                        {user.createdAt ? new Date(user.createdAt).toLocaleDateString() : '-'}
-                                    </td>
-                                    <td className="text-sm text-muted-foreground">
-                                        {user.lastLogin ? new Date(user.lastLogin).toLocaleDateString() : '-'}
-                                    </td>
-                                    <td>
-                                        <span className={`status-badge ${
-                                            user.deleteRequestedAt
+                                        </td>
+                                        <td className="font-mono text-sm">{user.tin || '-'}</td>
+                                        <td className="text-sm font-medium">{user.totalReceipts ?? 0}</td>
+                                        <td className="text-sm">{formatCurrency(user.totalSpent)}</td>
+                                        <td className="text-sm font-semibold text-primary">{formatCurrency(user.totalTaxAllTime)}</td>
+                                        <td className="text-sm">
+                                            {user.unpaidMonthsCount > 0 ? (
+                                                <span className="text-red-600 font-bold">{user.unpaidMonthsCount}</span>
+                                            ) : (
+                                                <span className="text-green-600">0</span>
+                                            )}
+                                        </td>
+                                        <td className="text-sm text-muted-foreground">
+                                            {user.createdAt ? new Date(user.createdAt).toLocaleDateString() : '-'}
+                                        </td>
+                                        <td className="text-sm text-muted-foreground">
+                                            {user.lastLogin ? new Date(user.lastLogin).toLocaleDateString() : '-'}
+                                        </td>
+                                        <td>
+                                            <span className={`status-badge ${user.deleteRequestedAt
                                                 ? 'pending'
                                                 : user.isSuspended
                                                     ? 'inactive'
                                                     : user.isActive
                                                         ? 'active'
                                                         : 'inactive'
-                                        }`}>
-                                            {statusLabel}
-                                        </span>
-                                    </td>
-                                    <td className="space-x-2 whitespace-nowrap">
-                                        <button
-                                            className="text-xs px-3 py-1 rounded border border-border hover:bg-muted"
-                                            onClick={() => handleSuspendToggle(user)}
-                                        >
-                                            {user.isSuspended ? 'Unsuspend' : 'Suspend'}
-                                        </button>
-                                        <button
-                                            className="text-xs px-3 py-1 rounded border border-destructive text-destructive hover:bg-destructive/10"
-                                            onClick={() => handleDeleteAction(user)}
-                                        >
-                                            {user.deleteRequestedAt ? 'Delete Now' : 'Schedule Delete'}
-                                        </button>
-                                    </td>
-                                </tr>
+                                                }`}>
+                                                {statusLabel}
+                                            </span>
+                                        </td>
+                                        <td className="space-x-2 whitespace-nowrap">
+                                            <button
+                                                className="btn-action btn-outline"
+                                                onClick={() => handleSuspendToggle(user)}
+                                                title={user.isSuspended ? 'Unsuspend User' : 'Suspend User'}
+                                            >
+                                                <Ban size={14} />
+                                                {user.isSuspended ? 'Unsuspend' : 'Suspend'}
+                                            </button>
+                                            <button
+                                                className="btn-action btn-danger"
+                                                onClick={() => handleDeleteAction(user)}
+                                                title={user.deleteRequestedAt ? 'Delete Permanently' : 'Schedule Deletion'}
+                                            >
+                                                <Trash2 size={14} />
+                                                {user.deleteRequestedAt ? 'Delete Now' : 'Delete'}
+                                            </button>
+                                        </td>
+                                    </tr>
                                 );
                             })}
                             {filteredUsers.length === 0 && (

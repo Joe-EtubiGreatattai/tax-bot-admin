@@ -752,3 +752,48 @@ body {
   color: var(--primary);
   text-transform: capitalize;
 }
+
+/* Action Buttons */
+.btn-action {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.375rem 0.75rem;
+  font-size: 0.75rem;
+  font-weight: 500;
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: all 0.2s;
+  border: 1px solid transparent;
+}
+
+.btn-outline {
+  background-color: transparent;
+  border-color: var(--border);
+  color: var(--foreground);
+}
+
+.btn-outline:hover {
+  background-color: var(--muted);
+  border-color: var(--muted-foreground);
+}
+
+.btn-danger {
+  background-color: transparent;
+  border-color: #fecaca;
+  color: #b91c1c;
+}
+
+.btn-danger:hover {
+  background-color: #fef2f2;
+  border-color: #f87171;
+}
+
+.btn-danger-solid {
+  background-color: #ef4444;
+  color: white;
+}
+
+.btn-danger-solid:hover {
+  background-color: #dc2626;
+}

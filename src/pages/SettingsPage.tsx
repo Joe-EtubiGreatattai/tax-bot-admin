@@ -99,20 +99,30 @@ const SettingsPage = () => {
                     <button
                         onClick={() => setActiveTab('profile')}
                         className={`group w-full text-left px-5 py-4 rounded-2xl flex items-center justify-between transition-all duration-300 border ${activeTab === 'profile'
-                                ? 'bg-gradient-to-br from-blue-50 via-white to-purple-50 border-blue-200/50 shadow-xl shadow-blue-500/10 ring-2 ring-blue-100 translate-x-1'
-                                : 'bg-white/50 border-gray-100 hover:bg-gradient-to-br hover:from-blue-50/50 hover:to-purple-50/50 hover:shadow-lg hover:border-blue-100 text-muted-foreground hover:text-foreground'
+                            ? 'bg-gradient-to-br from-blue-50 via-white to-purple-50 border-blue-200/50 shadow-xl shadow-blue-500/10 ring-2 ring-blue-100 translate-x-1'
+                            : 'bg-white/50 border-gray-100 hover:bg-gradient-to-br hover:from-blue-50/50 hover:to-purple-50/50 hover:shadow-lg hover:border-blue-100 text-muted-foreground hover:text-foreground'
                             }`}
                     >
                         <div className="flex items-center gap-4">
                             <div className={`p-3 rounded-xl transition-all duration-300 ${activeTab === 'profile'
-                                    ? 'bg-gradient-to-br from-blue-500 to-purple-600 text-white shadow-lg shadow-blue-500/30 scale-110'
-                                    : 'bg-gradient-to-br from-gray-100 to-gray-200 text-gray-600 group-hover:from-blue-400 group-hover:to-purple-500 group-hover:text-white group-hover:shadow-md'
+                                ? 'bg-gradient-to-br from-blue-500 to-purple-600 text-white shadow-lg shadow-blue-500/30 scale-110'
+                                : 'bg-gradient-to-br from-gray-100 to-gray-200 text-gray-600 group-hover:from-blue-400 group-hover:to-purple-500 group-hover:text-white group-hover:shadow-md'
                                 }`}>
                                 <User size={20} strokeWidth={activeTab === 'profile' ? 2.5 : 2} />
                             </div>
                             <div className="space-y-0.5">
-                                <span className={`block text-sm font-bold tracking-tight transition-colors ${activeTab === 'profile' ? 'text-gray-900' : 'text-gray-700'}`}>My Profile</span>
-                                <span className={`text-xs transition-colors ${activeTab === 'profile' ? 'text-blue-600 font-semibold' : 'text-gray-500'}`}>Account details</span>
+                                <span className={`
+    block text-sm font-bold tracking-tight transition-colors
+    ${activeTab === 'profile' ? 'text-gray-900' : 'text-gray-700'}
+  `}>
+                                    My Profile
+                                </span>
+                                <span className={`
+    text-xs transition-colors
+    ${activeTab === 'profile' ? 'text-blue-600 font-semibold' : 'text-gray-500'}
+  `}>
+                                    Account details
+                                </span>
                             </div>
                         </div>
                         {activeTab === 'profile' && (
@@ -123,14 +133,14 @@ const SettingsPage = () => {
                     <button
                         onClick={() => setActiveTab('admin')}
                         className={`group w-full text-left px-5 py-4 rounded-2xl flex items-center justify-between transition-all duration-300 border ${activeTab === 'admin'
-                                ? 'bg-gradient-to-br from-emerald-50 via-white to-teal-50 border-emerald-200/50 shadow-xl shadow-emerald-500/10 ring-2 ring-emerald-100 translate-x-1'
-                                : 'bg-white/50 border-gray-100 hover:bg-gradient-to-br hover:from-emerald-50/50 hover:to-teal-50/50 hover:shadow-lg hover:border-emerald-100 text-muted-foreground hover:text-foreground'
+                            ? 'bg-gradient-to-br from-emerald-50 via-white to-teal-50 border-emerald-200/50 shadow-xl shadow-emerald-500/10 ring-2 ring-emerald-100 translate-x-1'
+                            : 'bg-white/50 border-gray-100 hover:bg-gradient-to-br hover:from-emerald-50/50 hover:to-teal-50/50 hover:shadow-lg hover:border-emerald-100 text-muted-foreground hover:text-foreground'
                             }`}
                     >
                         <div className="flex items-center gap-4">
                             <div className={`p-3 rounded-xl transition-all duration-300 ${activeTab === 'admin'
-                                    ? 'bg-gradient-to-br from-emerald-500 to-teal-600 text-white shadow-lg shadow-emerald-500/30 scale-110'
-                                    : 'bg-gradient-to-br from-gray-100 to-gray-200 text-gray-600 group-hover:from-emerald-400 group-hover:to-teal-500 group-hover:text-white group-hover:shadow-md'
+                                ? 'bg-gradient-to-br from-emerald-500 to-teal-600 text-white shadow-lg shadow-emerald-500/30 scale-110'
+                                : 'bg-gradient-to-br from-gray-100 to-gray-200 text-gray-600 group-hover:from-emerald-400 group-hover:to-teal-500 group-hover:text-white group-hover:shadow-md'
                                 }`}>
                                 <Shield size={20} strokeWidth={activeTab === 'admin' ? 2.5 : 2} />
                             </div>

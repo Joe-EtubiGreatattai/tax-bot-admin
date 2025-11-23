@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Users, FileText, CreditCard, TrendingUp, Loader2 } from 'lucide-react';
+import { Users, FileText, CreditCard, TrendingUp, Loader2, ClipboardList, MessageSquare } from 'lucide-react';
 import { cn } from '../lib/utils';
 import { getStats } from '../services/api';
 
@@ -71,6 +71,16 @@ const Dashboard = () => {
                     icon={Users}
                 />
                 <StatCard
+                    title="Waitlist"
+                    value={stats?.totalWaitlist || 0}
+                    icon={ClipboardList}
+                />
+                <StatCard
+                    title="Messages"
+                    value={stats?.totalMessages || 0}
+                    icon={MessageSquare}
+                />
+                <StatCard
                     title="Total Receipts"
                     value={stats?.totalReceipts || 0}
                     icon={FileText}
@@ -90,8 +100,26 @@ const Dashboard = () => {
             <div className="content-grid">
                 <div className="card">
                     <h3 className="card-title">Recent Activity</h3>
-                    <div className="text-muted-foreground text-sm">
-                        Activity feed coming soon...
+                    <div>
+                        {stats?.recentActivity?.length > 0 ? (
+                            stats.recentActivity.map((activity: any, i: number) => (
+                                <div key={i} className="activity-item">
+                                    <div className="activity-info">
+                                        <div className="activity-icon">
+                                            {activity.type === 'user_signup' && <Users size={20} />}
+                                            {activity.type === 'receipt_upload' && <FileText size={20} />}
+                                            {activity.type === 'waitlist_join' && <ClipboardList size={20} />}
+                                        </div>
+                                        <div className="activity-text">
+                                            <p style={{ fontWeight: 500 }}>{activity.message}</p>
+                                            <p className="activity-time">{new Date(activity.date).toLocaleString()}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            ))
+                        ) : (
+                            <p className="text-muted-foreground text-sm">No recent activity</p>
+                        )}
                     </div>
                 </div>
 

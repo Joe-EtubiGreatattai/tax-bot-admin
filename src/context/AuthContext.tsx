@@ -4,7 +4,7 @@ import { login as apiLogin } from '../services/api';
 interface AuthContextType {
     user: any;
     token: string | null;
-    login: (email, password) => Promise<void>;
+    login: (email: string, password: string) => Promise<void>;
     logout: () => void;
     isAuthenticated: boolean;
     isLoading: boolean;
@@ -28,7 +28,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         setIsLoading(false);
     }, []);
 
-    const login = async (email, password) => {
+    const login = async (email: string, password: string): Promise<void> => {
         try {
             const response = await apiLogin(email, password);
             if (response.success) {

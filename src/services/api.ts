@@ -51,6 +51,26 @@ export const getUsers = async () => {
     return response.data;
 };
 
+export const suspendUser = async (userId: string, reason: string) => {
+    const response = await api.patch(`/users/${userId}/suspend`, { reason });
+    return response.data;
+};
+
+export const unsuspendUser = async (userId: string) => {
+    const response = await api.patch(`/users/${userId}/unsuspend`);
+    return response.data;
+};
+
+export const requestUserDeletion = async (userId: string, reason: string) => {
+    const response = await api.post(`/users/${userId}/delete-request`, { reason });
+    return response.data;
+};
+
+export const deleteUserNow = async (userId: string, reason: string) => {
+    const response = await api.delete(`/users/${userId}`, { data: { reason } });
+    return response.data;
+};
+
 export const getReceipts = async () => {
     const response = await api.get('/receipts');
     return response.data;

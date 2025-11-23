@@ -37,59 +37,70 @@ const ReceiptsPage = () => {
         );
     }
 
+    const formatCurrency = (amount: number) => {
+        return `₦${amount.toLocaleString('en-NG', { maximumFractionDigits: 2 })}`;
+    };
+
     return (
         <div>
-            <div className="flex justify-between items-center mb-6">
-                <div>
-                    <h2 className="dashboard-title">Receipts</h2>
-                    <p className="dashboard-subtitle">View and manage all uploaded receipts</p>
+            <div className="page-header">
+                <div className="header-content">
+                    <h2>Receipts</h2>
+                    <p>View and manage all uploaded receipts</p>
                 </div>
-                <div className="relative">
-                    <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+                <div className="search-container">
+                    <Search className="search-icon" size={20} />
                     <input
                         type="text"
                         placeholder="Search merchant or user..."
-                        className="pl-10 pr-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
+                        className="search-input"
                         value={searchTerm}
                         onChange={(e) => setSearchTerm(e.target.value)}
                     />
                 </div>
             </div>
 
-            <div className="card overflow-hidden">
+            <div className="table-container">
                 <div className="overflow-x-auto">
-                    <table className="w-full text-left border-collapse">
+                    <table className="data-table">
                         <thead>
-                            <tr className="border-b border-border">
-                                <th className="p-4 font-semibold text-muted-foreground">Date</th>
-                                <th className="p-4 font-semibold text-muted-foreground">Merchant</th>
-                                <th className="p-4 font-semibold text-muted-foreground">User</th>
-                                <th className="p-4 font-semibold text-muted-foreground">Amount</th>
-                                <th className="p-4 font-semibold text-muted-foreground">Tax</th>
-                                <th className="p-4 font-semibold text-muted-foreground">Category</th>
-                                <th className="p-4 font-semibold text-muted-foreground">Actions</th>
+                            <tr>
+                                <th>Date</th>
+                                <th>Merchant</th>
+                                <th>User</th>
+                                <th>Amount</th>
+                                <th>Tax</th>
+                                <th>Category</th>
+                                <th>Actions</th>
                             </tr>
                         </thead>
                         <tbody>
                             {filteredReceipts.map((receipt) => (
-                                <tr key={receipt._id} className="border-b border-border hover:bg-muted/50 transition-colors">
-                                    <td className="p-4">{new Date(receipt.date).toLocaleDateString()}</td>
-                                    <td className="p-4 font-medium">{receipt.merchant}</td>
-                                    <td className="p-4 text-sm text-muted-foreground">{receipt.userName}</td>
-                                    <td className="p-4 font-medium">₦{receipt.amount.toLocaleString()}</td>
-                                    <td className="p-4 text-sm">₦{receipt.taxAmount.toLocaleString()}</td>
-                                    <td className="p-4">
-                                        <span className="px-2 py-1 bg-secondary rounded-full text-xs font-medium">
+                                <tr key={receipt._id}>
+                                    <td className="text-sm text-muted-foreground">
+                                        {new Date(receipt.date).toLocaleDateString()}
+                                    </td>
+                                    <td className="font-medium">{receipt.merchant}</td>
+                                    <td>
+                                        <div className="flex flex-col">
+                                            <span className="text-sm font-medium">{receipt.userName}</span>
+                                            <span className="text-xs text-muted-foreground">{receipt.userEmail}</span>
+                                        </div>
+                                    </td>
+                                    <td className="font-medium">{formatCurrency(receipt.amount)}</td>
+                                    <td className="text-sm text-muted-foreground">{formatCurrency(receipt.taxAmount)}</td>
+                                    <td>
+                                        <span className="category-badge">
                                             {receipt.category}
                                         </span>
                                     </td>
-                                    <td className="p-4">
+                                    <td>
                                         {receipt.imagePath && (
                                             <a
                                                 href={receipt.imagePath}
                                                 target="_blank"
                                                 rel="noopener noreferrer"
-                                                className="text-accent hover:underline flex items-center gap-1 text-sm"
+                                                className="text-accent hover:text-accent/80 flex items-center gap-1 text-sm font-medium transition-colors"
                                             >
                                                 View <ExternalLink size={14} />
                                             </a>
@@ -97,6 +108,13 @@ const ReceiptsPage = () => {
                                     </td>
                                 </tr>
                             ))}
+                            {filteredReceipts.length === 0 && (
+                                <tr>
+                                    <td colSpan={7} className="text-center py-8 text-muted-foreground">
+                                        No receipts found matching your search.
+                                    </td>
+                                </tr>
+                            )}
                         </tbody>
                     </table>
                 </div>

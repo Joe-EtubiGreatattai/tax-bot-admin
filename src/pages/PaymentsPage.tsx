@@ -36,55 +36,71 @@ const PaymentsPage = () => {
         );
     }
 
+    const formatCurrency = (amount: number) => {
+        return `₦${amount.toLocaleString('en-NG', { maximumFractionDigits: 2 })}`;
+    };
+
     return (
         <div>
-            <div className="flex justify-between items-center mb-6">
-                <div>
-                    <h2 className="dashboard-title">Payments</h2>
-                    <p className="dashboard-subtitle">Track tax payments</p>
+            <div className="page-header">
+                <div className="header-content">
+                    <h2>Payments</h2>
+                    <p>Track and manage user tax payments</p>
                 </div>
-                <div className="relative">
-                    <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+                <div className="search-container">
+                    <Search className="search-icon" size={20} />
                     <input
                         type="text"
-                        placeholder="Search user..."
-                        className="pl-10 pr-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
+                        placeholder="Search by user name..."
+                        className="search-input"
                         value={searchTerm}
                         onChange={(e) => setSearchTerm(e.target.value)}
                     />
                 </div>
             </div>
 
-            <div className="card overflow-hidden">
+            <div className="table-container">
                 <div className="overflow-x-auto">
-                    <table className="w-full text-left border-collapse">
+                    <table className="data-table">
                         <thead>
-                            <tr className="border-b border-border">
-                                <th className="p-4 font-semibold text-muted-foreground">Month</th>
-                                <th className="p-4 font-semibold text-muted-foreground">User</th>
-                                <th className="p-4 font-semibold text-muted-foreground">Total Tax</th>
-                                <th className="p-4 font-semibold text-muted-foreground">Amount Paid</th>
-                                <th className="p-4 font-semibold text-muted-foreground">Status</th>
-                                <th className="p-4 font-semibold text-muted-foreground">Date Paid</th>
+                            <tr>
+                                <th>Month</th>
+                                <th>User</th>
+                                <th>Total Tax</th>
+                                <th>Amount Paid</th>
+                                <th>Status</th>
+                                <th>Date Paid</th>
                             </tr>
                         </thead>
                         <tbody>
                             {filteredPayments.map((payment) => (
-                                <tr key={payment._id} className="border-b border-border hover:bg-muted/50 transition-colors">
-                                    <td className="p-4 font-medium">{payment.month}</td>
-                                    <td className="p-4">{payment.userName}</td>
-                                    <td className="p-4">₦{payment.totalTax.toLocaleString()}</td>
-                                    <td className="p-4">₦{payment.paidAmount.toLocaleString()}</td>
-                                    <td className="p-4">
-                                        <span className={`px-2 py-1 rounded-full text-xs font-medium ${payment.isPaid ? 'bg-green-100 text-green-700' : 'bg-yellow-100 text-yellow-700'}`}>
+                                <tr key={payment._id}>
+                                    <td className="font-medium">{payment.month}</td>
+                                    <td>
+                                        <div className="flex flex-col">
+                                            <span className="text-sm font-medium">{payment.userName}</span>
+                                            <span className="text-xs text-muted-foreground">{payment.userEmail}</span>
+                                        </div>
+                                    </td>
+                                    <td className="text-sm font-medium">{formatCurrency(payment.totalTax)}</td>
+                                    <td className="text-sm">{formatCurrency(payment.paidAmount)}</td>
+                                    <td>
+                                        <span className={`status-badge ${payment.isPaid ? 'active' : 'inactive'}`}>
                                             {payment.isPaid ? 'Paid' : 'Pending'}
                                         </span>
                                     </td>
-                                    <td className="p-4 text-sm text-muted-foreground">
+                                    <td className="text-sm text-muted-foreground">
                                         {payment.paidDate ? new Date(payment.paidDate).toLocaleDateString() : '-'}
                                     </td>
                                 </tr>
                             ))}
+                            {filteredPayments.length === 0 && (
+                                <tr>
+                                    <td colSpan={6} className="text-center py-8 text-muted-foreground">
+                                        No payments found matching your search.
+                                    </td>
+                                </tr>
+                            )}
                         </tbody>
                     </table>
                 </div>

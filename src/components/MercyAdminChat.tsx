@@ -9,7 +9,7 @@ interface Message {
 
 const MercyAdminChat = () => {
     const [messages, setMessages] = useState<Message[]>([
-        { role: 'assistant', content: "Hello Admin! I'm Mercy. I can help you summarize data or find features in the dashboard." }
+        { role: 'assistant', content: "Hello Admin! I'm Eunice. I can help you summarize data or find features in the dashboard." }
     ]);
     const [input, setInput] = useState("");
     const [isLoading, setIsLoading] = useState(false);
@@ -58,7 +58,7 @@ const MercyAdminChat = () => {
                         <Bot size={24} />
                     </div>
                     <div>
-                        <h3 className="font-bold text-sm m-0">Mercy AI</h3>
+                        <h3 className="font-bold text-sm m-0">Eunice AI</h3>
                         <span className="text-xs opacity-80">Admin Assistant</span>
                     </div>
                 </div>

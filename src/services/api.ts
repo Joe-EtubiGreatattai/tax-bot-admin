@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_URL = 'https://taxbox.onrender.com/api/admin';
+const API_URL = 'https://api.tax-e.live/api/admin';
 
 const api = axios.create({
     baseURL: API_URL,
